@@ -3,37 +3,39 @@ using System.Collections.Generic;
 
 public class Player : BaseCharacter
 {
+    Rigidbody2D playerRigidBody2D; 
+    
     void Start()
     {
-        
+        playerRigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         UpdateMovement();
-        UpdateShoot();
+        Jump();
     }
 
     void UpdateMovement()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(MathConstants.Up * Time.deltaTime * Speed);
-        }
-        
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(MathConstants.Down * Time.deltaTime * Speed);
-        }
-
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Translate(MathConstants.Left * Time.deltaTime * Speed);
+            transform.Translate(-MathConstants.Left * (Time.deltaTime * Speed));
         }
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Translate(MathConstants.Right * Time.deltaTime * Speed);
+            transform.Translate(-MathConstants.Right * (Time.deltaTime * Speed));
+        }
+    }
+
+    void Jump()
+    {
+        if (isOnGround && Input.GetKey(KeyCode.Space))
+        {
+            playerRigidBody2D.AddForce(new Vector2(0, jumpSpeed));
+            isOnGround = false;
+            //transform.Translate(MathConstants.Up * (Time.deltaTime * Speed*4));
         }
     }
 
@@ -47,5 +49,23 @@ public class Player : BaseCharacter
 
         if (Input.GetKey(KeyCode.Space) && WeaponBaseComponent.IsReady())
             StartCoroutine(WeaponBaseComponent.Shoot(this.gameObject));
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Collider en trigger");
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            isOnGround = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collider en collision");
+        if (collision.gameObject.tag.Equals("Ground"))
+        {
+            isOnGround = true;
+        }
     }
 }
