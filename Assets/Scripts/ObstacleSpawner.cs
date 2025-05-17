@@ -1,31 +1,66 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField]
     public GameObject obstaclePrefab;
-
-    [SerializeField] float speed = 10;
     
-    private float timer = 0f;
+    [SerializeField]
+    public GameObject gameCore;
+
+    [SerializeField] 
+    private float speed = 10;
+    
+    [SerializeField] 
+    private float timerRangeMin = 1f;
+    
+    [SerializeField] 
+    private float timerRangeMax = 2f;
+
+    private float _timeToWaitForNextObstacleSpawn = 2;
+    
+    private float _currentTime = 0f;
+
+    private GameCore _gameCoreRef;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        
+        TimerGenerator();
+
+        _gameCoreRef = gameCore.GetComponent<GameCore>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        UpdatePosition();
+        SpawnObstacle();
+    }
+    
+    private void TimerGenerator()
+    {
+        _timeToWaitForNextObstacleSpawn = Random.Range(timerRangeMin, timerRangeMax);
+    }
+
+    private void UpdatePosition()
     {
         transform.Translate(Vector2.left * (speed * Time.deltaTime));
-        
-        timer += Time.deltaTime;
-        if (timer >= 1f)
+    }
+    
+    private void SpawnObstacle()
+    {
+        _currentTime += Time.deltaTime;
+        if (_currentTime < _timeToWaitForNextObstacleSpawn)
         {
-            // TODO clean it after some seconds
-            Instantiate(obstaclePrefab, gameObject.transform.position, Quaternion.identity);
-            timer = 0f;
+            return;
         }
+        
+        GameObject newObstacle = Instantiate(obstaclePrefab, gameObject.transform.position, Quaternion.identity);
+        _gameCoreRef.AddObstacle(newObstacle);
+        
+        TimerGenerator();
+        _currentTime = 0f;
     }
 }

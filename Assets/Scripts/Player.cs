@@ -8,6 +8,9 @@ public class Player : BaseCharacter
     void Start()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
+        
+        // experiment
+        playerRigidBody2D.freezeRotation = true;
     }
 
     void Update()
