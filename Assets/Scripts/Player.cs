@@ -5,12 +5,6 @@ public class Player : BaseCharacter
 {
     Rigidbody2D playerRigidBody2D; 
     
-    [SerializeField]
-    float currentLifePoints = 10;
-    
-    [SerializeField]
-    float maxLifePoints = 10;
-    
     void Start()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
@@ -79,13 +73,13 @@ public class Player : BaseCharacter
         
         if (collision.gameObject.tag.Equals("Obstacle"))
         {
-            if (currentLifePoints > 0)
-                currentLifePoints--;
+            if (GameInstance.SingletonGameInstance.currentLifePoints > 0)
+                GameInstance.SingletonGameInstance.currentLifePoints--;
         }
     }
 
     public float GetLifePercentage()
     {
-        return currentLifePoints / maxLifePoints;
+        return GameInstance.SingletonGameInstance.currentLifePoints / GameInstance.SingletonGameInstance.maxLifePoints;
     }
 }

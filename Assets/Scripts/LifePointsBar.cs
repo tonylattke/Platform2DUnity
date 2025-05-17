@@ -3,14 +3,12 @@ using UnityEngine;
 public class LifePointsBar : ProgressBar
 {
     private Player _playerRef;
-    
-    void Start()
+
+    private new void Start()
     {
         base.Start();
         _playerRef = GameCore.playerRef.GetComponent<Player>();
     }
-
-   
 
     protected override float GetProgress()
     {

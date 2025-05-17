@@ -15,9 +15,6 @@ public class GameCore : MonoBehaviour
     public TextMeshProUGUI scoreUIText;
     
     [SerializeField]
-    private int score = 0;
-    
-    [SerializeField]
     private HUDManager hudManager = new HUDManager();
 
     [SerializeField] 
@@ -40,7 +37,7 @@ public class GameCore : MonoBehaviour
             Destroy(obstacle);
         }
 
-        scoreUIText.text = "Score: " + score;
+        scoreUIText.text = "Score: " + GameInstance.SingletonGameInstance.currentScore;
     }
 
     public void AddObstacle(GameObject obtacle)
