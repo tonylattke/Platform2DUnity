@@ -1,32 +1,47 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
+using TMPro;
 
 public class GameCore : MonoBehaviour
 {
-    [FormerlySerializedAs("SpawnedObtacles")] [SerializeField] 
-    private List<GameObject> spawnedObtacles = new List<GameObject>();
+    [SerializeField] 
+    private List<GameObject> spawnedObstacles = new List<GameObject>();
+
+    [SerializeField] 
+    public int acceptedAmountOfSpawnedObstacles = 10;
+    
+    [SerializeField] 
+    public TextMeshProUGUI scoreUIText;
+    
+    [SerializeField]
+    int score = 0;
+    
+    [SerializeField]
+    protected HUDManager hudManager = new HUDManager();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        
+        hudManager.HideInGameUI();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        int amountOfSpawnedObtacles = spawnedObtacles.Count;
-        if (amountOfSpawnedObtacles > 2)
+        int amountOfSpawnedObstacles = spawnedObstacles.Count;
+        if (amountOfSpawnedObstacles > acceptedAmountOfSpawnedObstacles)
         {
-            GameObject obtacle = spawnedObtacles[0];
-            spawnedObtacles.RemoveAt(0);
-            Destroy(obtacle);
+            GameObject obstacle = spawnedObstacles[0];
+            spawnedObstacles.RemoveAt(0);
+            Destroy(obstacle);
         }
+
+        scoreUIText.text = "Score: " + score;
     }
 
     public void AddObstacle(GameObject obtacle)
     {
-        spawnedObtacles.Add(obtacle);
+        spawnedObstacles.Add(obtacle);
     }
 }
