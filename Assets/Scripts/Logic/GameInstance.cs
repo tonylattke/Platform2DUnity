@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
-    public static GameInstance SingletonGameInstance;
-
-    [SerializeField] 
-    public int currentScore = 10;
+    public static GameInstance Singleton;
+    
+    public int currentScore = 0;
     [SerializeField] 
     public float currentLifePoints = 10;
     [SerializeField] 
@@ -13,9 +12,9 @@ public class GameInstance : MonoBehaviour
 
     private void Awake()
     {
-        if (SingletonGameInstance == null)
+        if (Singleton == null)
         {
-            SingletonGameInstance = this;
+            Singleton = this;
             DontDestroyOnLoad(gameObject);
         }
         else

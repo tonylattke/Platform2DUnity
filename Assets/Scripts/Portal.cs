@@ -26,10 +26,9 @@ public class Portal : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collider en collision");
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.playerTag))
         {
-            GameInstance.SingletonGameInstance.currentScore += Points;
+            GameInstance.Singleton.currentScore += Points;
             SceneManager.LoadScene(SceneNameToLoad);
         }
     }

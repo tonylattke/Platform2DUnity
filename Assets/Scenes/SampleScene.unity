@@ -281,6 +281,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &500286785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500286787}
+  - component: {fileID: 500286786}
+  m_Layer: 0
+  m_Name: GameConstants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &500286786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500286785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04350347aaf6a64f88647c9ffe0ac33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  groundTag: Ground
+  obstacleTag: Obstacle
+  finalScoreScreenName: FinalScoreScreen
+--- !u!4 &500286787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500286785}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9034721, y: -3.3061655, z: -0.0333122}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1528,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6156257356539594966, guid: 10d05da812b7fb3499ae6bab419bc08c, type: 3}
+  m_Sprite: {fileID: -1181309197034280690, guid: 602a4327644462a4589cffaed9c4f175, type: 3}
   m_Color: {r: 0.105558395, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1529,13 +1577,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 5.52, y: 7.9}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &1712633042
 MonoBehaviour:
@@ -1549,8 +1597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f205cad4672f242853d3aaa36b35ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneNameToLoad: MainMenu
-  Points: 0
+  SceneNameToLoad: FinalScoreScreen
+  Points: 10
   _GameCoreRef: {fileID: 0}
 --- !u!4 &1712633043
 Transform:
@@ -1561,8 +1609,8 @@ Transform:
   m_GameObject: {fileID: 1712633039}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.93, y: -3.45, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 3.93, y: -3.25, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.25, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1760,7 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725746d92f933744bb7dbba81af3cef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScore: 10
+  currentScore: 0
   currentLifePoints: 10
   maxLifePoints: 10
 --- !u!4 &2084298124
@@ -1792,3 +1840,4 @@ SceneRoots:
   - {fileID: 1158114194}
   - {fileID: 1712633043}
   - {fileID: 2084298124}
+  - {fileID: 500286787}

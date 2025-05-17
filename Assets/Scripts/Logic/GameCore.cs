@@ -37,7 +37,7 @@ public class GameCore : MonoBehaviour
             Destroy(obstacle);
         }
 
-        scoreUIText.text = "Score: " + GameInstance.SingletonGameInstance.currentScore;
+        scoreUIText.text = "Score: " + GameInstance.Singleton.currentScore;
     }
 
     public void AddObstacle(GameObject obtacle)

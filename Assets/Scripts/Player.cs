@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Player : BaseCharacter
 {
@@ -57,7 +57,7 @@ public class Player : BaseCharacter
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collider en trigger");
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.groundTag))
         {
             isOnGround = true;
         }
@@ -65,21 +65,26 @@ public class Player : BaseCharacter
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Collider en collision");
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.groundTag))
         {
             isOnGround = true;
-        }
-        
-        if (collision.gameObject.tag.Equals("Obstacle"))
-        {
-            if (GameInstance.SingletonGameInstance.currentLifePoints > 0)
-                GameInstance.SingletonGameInstance.currentLifePoints--;
         }
     }
 
     public float GetLifePercentage()
     {
-        return GameInstance.SingletonGameInstance.currentLifePoints / GameInstance.SingletonGameInstance.maxLifePoints;
+        return GameInstance.Singleton.currentLifePoints / GameInstance.Singleton.maxLifePoints;
+    }
+
+    public void ReceiveDamage(GameObject otherObject, float damagePoints)
+    {
+        if (GameInstance.Singleton.currentLifePoints - damagePoints > 0)
+        {
+            GameInstance.Singleton.currentLifePoints -= damagePoints;
+            return;
+        }
+        
+        // TODO destroy and report  
+        SceneManager.LoadScene(GameConstants.Singleton.finalScoreScreenName);
     }
 }
