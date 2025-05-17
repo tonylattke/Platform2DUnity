@@ -15,15 +15,18 @@ public class GameCore : MonoBehaviour
     public TextMeshProUGUI scoreUIText;
     
     [SerializeField]
-    int score = 0;
+    private int score = 0;
     
     [SerializeField]
-    protected HUDManager hudManager = new HUDManager();
+    private HUDManager hudManager = new HUDManager();
+
+    [SerializeField] 
+    public GameObject playerRef;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        hudManager.HideInGameUI();
+        //hudManager.HideInGameUI();
     }
 
     // Update is called once per frame

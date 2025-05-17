@@ -5,6 +5,12 @@ public class Player : BaseCharacter
 {
     Rigidbody2D playerRigidBody2D; 
     
+    [SerializeField]
+    float currentLifePoints = 10;
+    
+    [SerializeField]
+    float maxLifePoints = 10;
+    
     void Start()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
@@ -65,10 +71,21 @@ public class Player : BaseCharacter
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collider en collision");
+        //Debug.Log("Collider en collision");
         if (collision.gameObject.tag.Equals("Ground"))
         {
             isOnGround = true;
         }
+        
+        if (collision.gameObject.tag.Equals("Obstacle"))
+        {
+            if (currentLifePoints > 0)
+                currentLifePoints--;
+        }
+    }
+
+    public float GetLifePercentage()
+    {
+        return currentLifePoints / maxLifePoints;
     }
 }
