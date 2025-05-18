@@ -14,8 +14,7 @@ public class GameCore : MonoBehaviour
     [SerializeField] 
     public TextMeshProUGUI scoreUIText;
     
-    [SerializeField]
-    private HUDManager hudManager = new HUDManager();
+    [SerializeField] public HUDManager hudManager = new HUDManager();
 
     [SerializeField] 
     public GameObject playerRef;
