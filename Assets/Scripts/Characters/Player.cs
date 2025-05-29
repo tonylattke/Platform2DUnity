@@ -78,10 +78,13 @@ public class Player : BaseCharacter
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals(GameConstants.Singleton.groundTag))
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.killZone))
         {
-            isOnGround = true;
+            SceneManager.LoadScene("FinalScoreScreen");
+            return;
         }
+        
+        isOnGround = true;
     }
 
     public float GetLifePercentage()
