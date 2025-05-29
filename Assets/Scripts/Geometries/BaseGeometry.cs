@@ -54,6 +54,11 @@ public class BaseGeometry
     
     public void CircleSkill(Player player)
     {
+        if (player.playerRigidBody2D.linearVelocity.magnitude > 0)
+        {
+            return;
+        }
+        
         player.playerRigidBody2D.AddForce(new Vector2(player.MovementDirection * player.GetDashSpeed(), 0));
     }
     

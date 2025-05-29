@@ -694,7 +694,7 @@ MonoBehaviour:
     logoColor: {r: 0, g: 0, b: 1, a: 0}
   gameCore: {fileID: 1169525030}
   MovementDirection: 1
-  _dashSpeed: 200
+  _dashSpeed: 100
 --- !u!212 &958432732
 SpriteRenderer:
   m_ObjectHideFlags: 0
