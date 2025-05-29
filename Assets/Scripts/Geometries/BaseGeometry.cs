@@ -103,7 +103,7 @@ public class BaseGeometry
 
     public void RecoverNormalSizeAllGeometries(Player player)
     {
-        UpdateBoxScale(player, MaxBoxScale);
+        UpdateBoxScale(player, MaxBoxScaleOriginal);
     }
 
     public void resetStats()

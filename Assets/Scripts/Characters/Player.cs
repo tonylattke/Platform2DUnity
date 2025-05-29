@@ -214,12 +214,6 @@ public class Player : BaseCharacter
         
         _spriteRenderer.color = new Color(Random.value,Random.value,Random.value);
     }
-
-    private void UsePowerUp(float duration)
-    {
-        usePowerUp = true;
-        timerPowerUp = duration;
-    }
     
     private void ApplyPowerUp(Collision2D collision)
     {
@@ -228,7 +222,10 @@ public class Player : BaseCharacter
             return;
         
         _currentGeometry.ApplyNewStats(powerUp);
-
-        UsePowerUp(powerUp.Duration);
+        timerPowerUp = powerUp.Duration;
+        usePowerUp = true;
+        GameInstance.Singleton.AddPoints(powerUp.Points);
+        
+        Destroy(collision.gameObject);
     }
 }
