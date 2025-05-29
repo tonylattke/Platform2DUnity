@@ -54,7 +54,7 @@ public class BaseGeometry
     
     public void CircleSkill(Player player)
     {
-        if (player.playerRigidBody2D.linearVelocity.magnitude > 0)
+        if (player.playerRigidBody2D.linearVelocity.magnitude > 1)
         {
             return;
         }

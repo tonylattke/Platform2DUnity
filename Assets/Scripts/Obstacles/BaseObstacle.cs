@@ -50,6 +50,7 @@ public class BaseObstacle : MonoBehaviour
         {
             ScaleDirection *= -1;
             LocationDirection *= -1;
+            RotateDirection *= -1;
             transformTimer = 0;
         }
 
