@@ -15,18 +15,23 @@ public class BaseGeometry
     [SerializeField] 
     public Color logoColor;
 
-    public void Skill(GameObject gameObject)
+    private float _currentBoxScale = 0.5f;
+    private float _minBoxScale = 0.25f;
+    private float _maxBoxScale = 0.5f;
+    private float _boxSpeedRescale = 2;
+
+    public void Skill(Player player)
     {
         switch (geomType)
         {
             case global::GeometryType.Box:
-                BoxHSkill(gameObject);
+                BoxSkill(player);
                 break;
             case global::GeometryType.Circle:
-                CircleSkill(gameObject);
+                CircleSkill(player);
                 break;
             case global::GeometryType.Triangle:
-                TriangleSkill(gameObject);
+                TriangleSkill(player);
                 break;
         }
     }
@@ -36,18 +41,47 @@ public class BaseGeometry
         return geomType;
     }
     
-    public void BoxHSkill(GameObject gameObject)
+    public void BoxSkill(Player player)
     {
-        // TODO
+        float temporaryNewScale = _currentBoxScale - _boxSpeedRescale * Time.deltaTime;
+        if (temporaryNewScale < _minBoxScale)
+        {
+            return;
+        }
+        
+        UpdateBoxScale(player, temporaryNewScale);
     }
     
-    public void CircleSkill(GameObject gameObject)
+    public void CircleSkill(Player player)
     {
-        // TODO
+        player.playerRigidBody2D.AddForce(new Vector2(player.MovementDirection * player.GetDashSpeed(), 0));
     }
     
-    public void TriangleSkill(GameObject gameObject)
+    public void TriangleSkill(Player player)
     {
-        // TODO
+        if (!player.isOnGround)
+        {
+            return;
+        }
+        
+        player.playerRigidBody2D.AddForce(new Vector2(0, player.GetJumpSpeed()));
+        player.isOnGround = false;
+    }
+    
+    public void RecoverBoxSize(Player player)
+    {
+        float temporaryNewScale = _currentBoxScale + _boxSpeedRescale * Time.deltaTime;
+        if (temporaryNewScale > _maxBoxScale)
+        {
+            return;
+        }
+        
+        UpdateBoxScale(player, temporaryNewScale);
+    }
+
+    private void UpdateBoxScale(Player player, float newScale)
+    {
+        _currentBoxScale = newScale;
+        player.gameObject.transform.localScale = new Vector3(_currentBoxScale, _currentBoxScale, _currentBoxScale);
     }
 }

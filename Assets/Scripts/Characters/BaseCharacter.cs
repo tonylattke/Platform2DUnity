@@ -18,5 +18,10 @@ public class BaseCharacter : MonoBehaviour
 	
 	private float lifePointsMax { get => lifePointsMax; set => lifePointsMax = value; }
 
-	protected bool isOnGround = true;
+	public bool isOnGround = true;
+
+	public int GetJumpSpeed()
+	{
+		return jumpSpeed;
+	}
 }

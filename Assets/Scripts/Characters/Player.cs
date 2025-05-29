@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : BaseCharacter
 {
-    private Rigidbody2D _playerRigidBody2D;
+    public Rigidbody2D playerRigidBody2D;
     
     [SerializeField]
     List<BaseGeometry> geometryPowers = new List<BaseGeometry>();
@@ -24,6 +24,11 @@ public class Player : BaseCharacter
     private CircleCollider2D _circleCollider2D;
     private PolygonCollider2D _polygonCollider2D;
 
+    public int MovementDirection = 1; 
+    
+    [SerializeField]
+    private int _dashSpeed = 200;
+
     void Start()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
@@ -31,11 +36,11 @@ public class Player : BaseCharacter
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
         
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _playerRigidBody2D = GetComponent<Rigidbody2D>();
+        playerRigidBody2D = GetComponent<Rigidbody2D>();
         _gameCoreRef = gameCore.GetComponent<GameCore>();
         
         // experiment
-        _playerRigidBody2D.freezeRotation = true;
+        playerRigidBody2D.freezeRotation = true;
 
         UpdateGeometryContent(geometryPowers[0]);
     }
@@ -43,7 +48,6 @@ public class Player : BaseCharacter
     private void Update()
     {
         UpdateMovement();
-        UpdateJump();
         UpdateGeometryPower();
         UpdateExecuteSkill();
     }
@@ -53,23 +57,14 @@ public class Player : BaseCharacter
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(-MathConstants.Left * (Time.deltaTime * Speed));
+            MovementDirection = 1;
         }
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(-MathConstants.Right * (Time.deltaTime * Speed));
+            MovementDirection = -1;
         }
-    }
-
-    void UpdateJump()
-    {
-        if (!isOnGround || !Input.GetKey(KeyCode.Space))
-        {
-            return;
-        }
-        
-        _playerRigidBody2D.AddForce(new Vector2(0, jumpSpeed));
-        isOnGround = false;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -157,11 +152,19 @@ public class Player : BaseCharacter
 
     private void UpdateExecuteSkill()
     {
-        if (!Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
         {
-            return;
+            _currentGeometry.Skill(this);
+        }
+        else
+        {
+            _currentGeometry.RecoverBoxSize(this);
         }
         
-        _currentGeometry.Skill(gameObject);
+    }
+
+    public int GetDashSpeed()
+    {
+        return _dashSpeed;
     }
 }
