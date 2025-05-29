@@ -158,7 +158,7 @@ public class Player : BaseCharacter
         }
         else
         {
-            _currentGeometry.RecoverBoxSize(this);
+            RevertEffectsOfSkill();
         }
         
     }
@@ -166,5 +166,13 @@ public class Player : BaseCharacter
     public int GetDashSpeed()
     {
         return _dashSpeed;
+    }
+    
+    private void RevertEffectsOfSkill()
+    {
+        if (_currentGeometryType == GeometryType.Box)
+            _currentGeometry.RecoverBoxSize(this);
+        else
+            _currentGeometry.RecoverNormalSizeAllGeometries(this);
     }
 }

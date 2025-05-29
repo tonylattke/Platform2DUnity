@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
@@ -18,11 +19,15 @@ public class GameCore : MonoBehaviour
 
     [SerializeField] 
     public GameObject playerRef;
+
+    [SerializeField]
+    public GameObject levelHandler;
+    private LevelHandler _levelHandlerRef;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         //hudManager.HideInGameUI();
+        _levelHandlerRef = levelHandler.GetComponent<LevelHandler>();
     }
 
     // Update is called once per frame
@@ -42,5 +47,10 @@ public class GameCore : MonoBehaviour
     public void AddObstacle(GameObject obtacle)
     {
         spawnedObstacles.Add(obtacle);
+    }
+
+    public string GetNextSceneToLoadName()
+    {
+        return _levelHandlerRef.nextScene;
     }
 }

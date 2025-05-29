@@ -16,9 +16,9 @@ public class BaseGeometry
     public Color logoColor;
 
     private float _currentBoxScale = 0.5f;
-    private float _minBoxScale = 0.25f;
-    private float _maxBoxScale = 0.5f;
-    private float _boxSpeedRescale = 2;
+    private const float MinBoxScale = 0.25f;
+    private const float MaxBoxScale = 0.5f;
+    private const float BoxSpeedRescale = 2;
 
     public void Skill(Player player)
     {
@@ -43,8 +43,8 @@ public class BaseGeometry
     
     public void BoxSkill(Player player)
     {
-        float temporaryNewScale = _currentBoxScale - _boxSpeedRescale * Time.deltaTime;
-        if (temporaryNewScale < _minBoxScale)
+        float temporaryNewScale = _currentBoxScale - BoxSpeedRescale * Time.deltaTime;
+        if (temporaryNewScale < MinBoxScale)
         {
             return;
         }
@@ -70,8 +70,8 @@ public class BaseGeometry
     
     public void RecoverBoxSize(Player player)
     {
-        float temporaryNewScale = _currentBoxScale + _boxSpeedRescale * Time.deltaTime;
-        if (temporaryNewScale > _maxBoxScale)
+        float temporaryNewScale = _currentBoxScale + BoxSpeedRescale * Time.deltaTime;
+        if (temporaryNewScale > MaxBoxScale)
         {
             return;
         }
@@ -83,5 +83,10 @@ public class BaseGeometry
     {
         _currentBoxScale = newScale;
         player.gameObject.transform.localScale = new Vector3(_currentBoxScale, _currentBoxScale, _currentBoxScale);
+    }
+
+    public void RecoverNormalSizeAllGeometries(Player player)
+    {
+        UpdateBoxScale(player, MaxBoxScale);
     }
 }

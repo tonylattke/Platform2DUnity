@@ -3,19 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField]
-    string SceneNameToLoad;
-
     [SerializeField] 
     private int Points;
     
-    [SerializeField]
-    private GameCore _GameCoreRef;
+    [SerializeField] 
+    private GameObject gameCore;
+    
+    private GameCore _gameCoreRef;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _gameCoreRef = gameCore.GetComponent<GameCore>();
     }
 
     // Update is called once per frame
@@ -26,10 +25,12 @@ public class Portal : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals(GameConstants.Singleton.playerTag))
+        if (!collision.gameObject.tag.Equals(GameConstants.Singleton.playerTag))
         {
-            GameInstance.Singleton.currentScore += Points;
-            SceneManager.LoadScene(SceneNameToLoad);
+            return;
         }
+        
+        GameInstance.Singleton.currentScore += Points;
+        SceneManager.LoadScene(_gameCoreRef.GetNextSceneToLoadName());
     }
 }
