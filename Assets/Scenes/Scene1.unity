@@ -259,6 +259,7 @@ MonoBehaviour:
   obstacleTag: Obstacle
   finalScoreScreenName: FinalScoreScreen
   killZone: KillZone
+  earnPoints: EarnPoints
 --- !u!4 &500286787
 Transform:
   m_ObjectHideFlags: 0
@@ -984,12 +985,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle_LocationAnimated (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3201409089302680210, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
+      propertyPath: m_TagString
+      value: EarnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
+      propertyPath: Points
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: MoveSpeed
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: canRotate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
+      propertyPath: consumedPoints
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
@@ -1530,6 +1543,10 @@ PrefabInstance:
     - target: {fileID: 3201409089302680210, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: m_Name
       value: Obstacle_LocationAnimated (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201409089302680210, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
+      propertyPath: m_TagString
+      value: EarnPoints
       objectReference: {fileID: 0}
     - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: MoveSpeed
@@ -2227,6 +2244,10 @@ PrefabInstance:
     - target: {fileID: 3201409089302680210, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: m_Name
       value: Obstacle_LocationAnimated
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201409089302680210, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
+      propertyPath: m_TagString
+      value: EarnPoints
       objectReference: {fileID: 0}
     - target: {fileID: 9014753130778832435, guid: 9418a88df073e7346a45efcacb7a248b, type: 3}
       propertyPath: canRotate

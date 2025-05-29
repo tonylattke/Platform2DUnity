@@ -38,6 +38,11 @@ public class BaseObstacle : MonoBehaviour
     private float transformTimer = 0;
     private float Interval = 2;
     
+    public bool consumedPoints = false;
+    
+    [SerializeField]
+    public int Points = 1;
+    
     void Start()
     {
         

@@ -9,6 +9,7 @@ public class GameConstants : MonoBehaviour
     public string obstacleTag = "Obstacle";
     public string finalScoreScreenName = "FinalScoreScreen";
     public string killZone = "KillZone";
+    public string earnPoints = "EarnPoints";
     
     
     private void Awake()

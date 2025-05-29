@@ -84,6 +84,11 @@ public class Player : BaseCharacter
             return;
         }
         
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.earnPoints))
+        {
+            CheckEarnPoints(collision);
+        }
+        
         isOnGround = true;
     }
 
@@ -163,7 +168,6 @@ public class Player : BaseCharacter
         {
             RevertEffectsOfSkill();
         }
-        
     }
 
     public int GetDashSpeed()
@@ -177,5 +181,18 @@ public class Player : BaseCharacter
             _currentGeometry.RecoverBoxSize(this);
         else
             _currentGeometry.RecoverNormalSizeAllGeometries(this);
+    }
+    
+    private void CheckEarnPoints(Collision2D collision)
+    {
+        BaseObstacle obstacle = collision.gameObject.GetComponent<BaseObstacle>();
+        if (obstacle == null)
+            return;
+
+        if (obstacle.consumedPoints)
+            return;
+        
+        obstacle.consumedPoints = true;
+        GameInstance.Singleton.AddPoints(obstacle.Points);
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Obstacle
   - KillZone
+  - EarnPoints
   layers:
   - Default
   - TransparentFX

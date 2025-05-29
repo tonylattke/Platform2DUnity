@@ -22,4 +22,9 @@ public class GameInstance : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void AddPoints(int points)
+    {
+        currentScore += points;
+    }
 }
