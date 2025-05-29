@@ -13,5 +13,6 @@ public class MainMenuCore : BaseScreenCore
         base.Update();
         
         GameInstance.Singleton.currentScore = 0;
+        GameInstance.Singleton.currentLifePoints = GameInstance.Singleton.maxLifePoints;
     }
 }
