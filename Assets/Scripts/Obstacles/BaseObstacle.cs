@@ -15,16 +15,25 @@ public class BaseObstacle : MonoBehaviour
     bool canMove = true;
     
     [SerializeField]
+    bool canRotate = false;
+    
+    [SerializeField]
     float ScaleSpeed = 2;
     
     [SerializeField]
     float MoveSpeed = 2;
     
     [SerializeField]
+    float RotateSpeed = 2;
+    
+    [SerializeField]
     public Vector3 ScaleDirection = new Vector3(0, 1, 0);
 
     [SerializeField]
     public Vector3 LocationDirection = new Vector3(1, 0, 0);
+    
+    [SerializeField]
+    public Vector3 RotateDirection = new Vector3(1, 0, 0);
     
     private float transformTimer = 0;
     private float Interval = 2;
@@ -46,6 +55,7 @@ public class BaseObstacle : MonoBehaviour
 
         UpdateScale();
         UpdateLocation();
+        UpdateRotation();
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,5 +84,13 @@ public class BaseObstacle : MonoBehaviour
             return;
         
         transform.Translate(LocationDirection * (Time.deltaTime * MoveSpeed));
+    }
+    
+    private void UpdateRotation()
+    {
+        if (!canRotate)
+            return;
+        
+        transform.Rotate(RotateDirection * (Time.deltaTime * RotateSpeed));
     }
 }
