@@ -16,9 +16,20 @@ public class BaseGeometry
     public Color logoColor;
 
     private float _currentBoxScale = 0.5f;
-    private const float MinBoxScale = 0.25f;
-    private const float MaxBoxScale = 0.5f;
+    private float MinBoxScale = 0.25f;
+    private float MaxBoxScale = 0.5f;
     private const float BoxSpeedRescale = 2;
+    
+    private const float MinBoxScaleOriginal = 0.25f;
+    private const float MaxBoxScaleOriginal = 0.5f;
+
+    [SerializeField] 
+    private int jumpSpeed = 300;
+    private const int jumpSpeedOriginal = 300;
+    
+    [SerializeField]
+    private int _dashSpeed = 200;
+    private const int DashSpeedOriginal = 200;
 
     public void Skill(Player player)
     {
@@ -59,7 +70,7 @@ public class BaseGeometry
             return;
         }
         
-        player.playerRigidBody2D.AddForce(new Vector2(player.MovementDirection * player.GetDashSpeed(), 0));
+        player.playerRigidBody2D.AddForce(new Vector2(player.MovementDirection * _dashSpeed, 0));
     }
     
     public void TriangleSkill(Player player)
@@ -69,7 +80,7 @@ public class BaseGeometry
             return;
         }
         
-        player.playerRigidBody2D.AddForce(new Vector2(0, player.GetJumpSpeed()));
+        player.playerRigidBody2D.AddForce(new Vector2(0, jumpSpeed));
         player.isOnGround = false;
     }
     
@@ -93,5 +104,32 @@ public class BaseGeometry
     public void RecoverNormalSizeAllGeometries(Player player)
     {
         UpdateBoxScale(player, MaxBoxScale);
+    }
+
+    public void resetStats()
+    {
+        MinBoxScale = MinBoxScaleOriginal;
+        MaxBoxScale = MaxBoxScaleOriginal;
+        
+        jumpSpeed = jumpSpeedOriginal;
+        
+        _dashSpeed = DashSpeedOriginal;
+    }
+
+    public void ApplyNewStats(PowerUp powerUp)
+    {
+        switch (powerUp.GeomeType)
+        {
+            case global::GeometryType.Box:
+                MinBoxScale = powerUp.MinBoxScale;
+                MaxBoxScale = powerUp.MaxBoxScale;
+                break;
+            case global::GeometryType.Circle:
+                jumpSpeed = powerUp.jumpSpeed;
+                break;
+            case global::GeometryType.Triangle:
+                _dashSpeed = powerUp.CircleDashSpeed;
+                break;
+        }
     }
 }

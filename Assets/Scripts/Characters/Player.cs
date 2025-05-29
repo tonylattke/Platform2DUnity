@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Player : BaseCharacter
 {
@@ -24,10 +25,10 @@ public class Player : BaseCharacter
     private CircleCollider2D _circleCollider2D;
     private PolygonCollider2D _polygonCollider2D;
 
-    public int MovementDirection = 1; 
-    
-    [SerializeField]
-    private int _dashSpeed = 200;
+    public int MovementDirection = 1;
+
+    private bool usePowerUp = false;
+    private float timerPowerUp = 0;
 
     void Start()
     {
@@ -47,6 +48,7 @@ public class Player : BaseCharacter
 
     private void Update()
     {
+        UpdateUsingPowerUp();
         UpdateMovement();
         UpdateGeometryPower();
         UpdateExecuteSkill();
@@ -87,6 +89,12 @@ public class Player : BaseCharacter
         if (collision.gameObject.tag.Equals(GameConstants.Singleton.earnPoints))
         {
             CheckEarnPoints(collision);
+        }
+        
+        if (collision.gameObject.tag.Equals(GameConstants.Singleton.powerUp))
+        {
+            ApplyPowerUp(collision);
+            return;
         }
         
         isOnGround = true;
@@ -169,11 +177,6 @@ public class Player : BaseCharacter
             RevertEffectsOfSkill();
         }
     }
-
-    public int GetDashSpeed()
-    {
-        return _dashSpeed;
-    }
     
     private void RevertEffectsOfSkill()
     {
@@ -194,5 +197,38 @@ public class Player : BaseCharacter
         
         obstacle.consumedPoints = true;
         GameInstance.Singleton.AddPoints(obstacle.Points);
+    }
+
+    private void UpdateUsingPowerUp()
+    {
+        if (!usePowerUp)
+            return;
+            
+        timerPowerUp -= Time.deltaTime;
+        if (timerPowerUp <= 0)
+        {
+            _currentGeometry.resetStats();
+            _spriteRenderer.color = Color.white;
+            return;
+        }
+        
+        _spriteRenderer.color = new Color(Random.value,Random.value,Random.value);
+    }
+
+    private void UsePowerUp(float duration)
+    {
+        usePowerUp = true;
+        timerPowerUp = duration;
+    }
+    
+    private void ApplyPowerUp(Collision2D collision)
+    {
+        PowerUp powerUp = collision.gameObject.GetComponent<PowerUp>();
+        if (powerUp == null)
+            return;
+        
+        _currentGeometry.ApplyNewStats(powerUp);
+
+        UsePowerUp(powerUp.Duration);
     }
 }

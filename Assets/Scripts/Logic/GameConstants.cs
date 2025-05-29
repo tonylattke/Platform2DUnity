@@ -10,6 +10,7 @@ public class GameConstants : MonoBehaviour
     public string finalScoreScreenName = "FinalScoreScreen";
     public string killZone = "KillZone";
     public string earnPoints = "EarnPoints";
+    public string powerUp = "PowerUp";
     
     
     private void Awake()
